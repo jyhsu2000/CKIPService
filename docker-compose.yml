@@ -1,0 +1,12 @@
+version: '3'
+services:
+  ckip:
+    container_name: ckip-service
+    image: jyhsu2000/ckip-service
+    restart: always
+    environment:
+      - PYTHONIOENCODING=utf-8
+    ports:
+      - 5005:5005
+    volumes:
+      - ./data:/usr/local/src/CKIPTagger/data:ro
