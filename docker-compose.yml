@@ -9,4 +9,5 @@ services:
     ports:
       - 5005:5005
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./data:/usr/local/src/CKIPTagger/data:ro
