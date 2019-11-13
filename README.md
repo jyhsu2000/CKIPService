@@ -42,3 +42,15 @@ Docker compose for [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)
     (4, 10, 'CARDINAL', '59,000')
     (14, 18, 'CARDINAL', '5.9萬')
     ```
+
+## Alternative
+If you want to run this service without Docker, you can follow this steps after `data` folder is ready.  
+However, **we highly recommend using Docker Compose**.
+1. Install required packages
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+2. Run
+    ```bash
+    python3 ckip_service.py
+    ```
