@@ -4,9 +4,8 @@ LABEL MAINTAINER="jyhsu2000@gmail.com"
 
 WORKDIR /usr/local/src/CKIPTagger
 
-RUN pip3 --no-cache-dir install \
-    Flask \
-    ckiptagger[tf,gdown]
+ADD requirements.txt .
+RUN pip3 --no-cache-dir install -r requirements.txt
 
 COPY ckip_service.py ./
 
