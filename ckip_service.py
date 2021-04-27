@@ -36,7 +36,7 @@ async def index():
 async def tokenize(
         sentence_list: str = Form(
             ...,
-            description='Multiline text for tokenizing.',
+            description=r'Sentence list for CKIP tagging, split multiple sentences by linebreak(`\n`)',
             example='美國參議院針對今天總統布希所提名的勞工部長趙小蘭展開認可聽證會，預料她將會很順利通過參議院支持，成為該國有史以來第一位的華裔女性內閣成員。'
         )
 ):
