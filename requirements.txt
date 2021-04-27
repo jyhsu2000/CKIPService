@@ -1,3 +1,4 @@
-Flask
 ckiptagger
-
+uvicorn[standard]
+fastapi
+python-multipart

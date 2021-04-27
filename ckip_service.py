@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # coding=utf-8
 # -*- coding: UTF-8 -*-
-import os
-import sys
-from flask import Flask, jsonify, request, send_file
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+import uvicorn
 
 # Suppress as many warnings as possible
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -13,16 +13,17 @@ from flask import Flask, jsonify, request, send_file
 # tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 from ckiptagger import data_utils, construct_dictionary, WS, POS, NER
+from fastapi.params import Form
 
 # model variables
 ws = None
 pos = None
 ner = None
 
-app = Flask(__name__)
+app = FastAPI()
 
-
-def initial():
+@app.on_event("startup")
+async def initial():
     global ws, pos, ner
     # Load model
     ws = WS("./data")
@@ -30,17 +31,15 @@ def initial():
     ner = NER("./data")
 
 
-@app.route('/', methods=['POST'])
-def main():
+@app.post('/', response_class=PlainTextResponse)
+async def main(sentence_list:str=Form(...)):
     global ws, pos, ner
 
     # if not request.is_json:
     #     return 'Invalid input'
     #     exit(1)
-    sentence_list = request.form.get('sentence_list')
     if sentence_list is None:
         return 'Missing sentence_list'
-        exit(1)
     sentence_list = sentence_list.split('\n')
 
     # Download data
@@ -107,6 +106,4 @@ def main():
 
 
 if __name__ == "__main__":
-    initial()
-    app.run(debug=False, host='0.0.0.0', port=5005)
-    sys.exit()
+    uvicorn.run(app, host="127.0.0.1", port=5005)
