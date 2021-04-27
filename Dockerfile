@@ -1,6 +1,4 @@
-FROM tensorflow/tensorflow:1.15.0-py3
-#FROM python:3.6
-LABEL MAINTAINER="jyhsu2000@gmail.com"
+FROM tensorflow/tensorflow:2.4.1
 
 WORKDIR /usr/local/src/CKIPTagger
 
