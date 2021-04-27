@@ -3,6 +3,7 @@ services:
   ckip:
     container_name: ckip-service
     image: jyhsu2000/ckip-service
+    build: .
     restart: always
     environment:
       - PYTHONIOENCODING=utf-8
