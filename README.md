@@ -1,17 +1,17 @@
 # CKIP Service
 Docker compose for [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)
 
-## Installation
-1. [Download model files](https://github.com/ckiplab/ckiptagger#1-download-model-files) and put into `data` folder
-2. Build docker image
-    ```bash
-    docker build -t jyhsu2000/ckip-service .
-    ```
+## Preparation
+- [Download model files](https://github.com/ckiplab/ckiptagger#1-download-model-files) and put into `data` folder
 
 ## Start service
 1. Start the service using `docker-compose`
     ```
     docker-compose up -d
+    ```
+    If you want to rebuild the image, add `--build` flag when startup
+    ```
+    docker-compose up --build -d
     ```
 2. Service is now on port `5005`
 
