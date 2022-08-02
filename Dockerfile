@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:2.4.1
+FROM tensorflow/tensorflow:2.9.1
 
 WORKDIR /usr/local/src/CKIPTagger
 
