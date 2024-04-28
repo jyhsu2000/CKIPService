@@ -60,7 +60,7 @@ async def tokenize(
                 'ps': pos,
             }
             word_segment.append(ws)
-        return word_pos_sentence
+        return word_segment
 
     for i in range(len(sentence_list)):
         result.append(print_word_pos_sentence(
