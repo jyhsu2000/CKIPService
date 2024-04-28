@@ -53,8 +53,13 @@ async def tokenize(
     def print_word_pos_sentence(word_sentence, pos_sentence):
         assert len(word_sentence) == len(pos_sentence)
         word_pos_sentence = ""
+        word_segment = []
         for word, pos in zip(word_sentence, pos_sentence):
-            word_pos_sentence += f"{word}({pos})" + "\u3000"
+            ws = {
+                'word': word,
+                'ps': pos,
+            }
+            word_segment.append(ws)
         return word_pos_sentence
 
     for i in range(len(sentence_list)):
