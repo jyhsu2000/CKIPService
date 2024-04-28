@@ -55,12 +55,14 @@ async def tokenize(
         assert len(word_sentence) == len(pos_sentence)
         word_pos_sentence = ""
         word_segment_list = []
+
         for word, pos in zip(word_sentence, pos_sentence):
             word_segment = {
                 'word': word,
                 'ps': pos,
             }
             word_segment_list.append(word_segment)
+
         return word_segment_list
 
     for i in range(len(sentence_list)):
@@ -68,6 +70,7 @@ async def tokenize(
             word_sentence_list[i],
             pos_sentence_list[i],
         )
+
         for entity in sorted(entity_sentence_list[i]):
             result.append(str(entity))
         result.append("")
