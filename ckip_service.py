@@ -67,8 +67,6 @@ async def tokenize(
             word_sentence_list[i],
             pos_sentence_list[i],
         )
-        result.append(print_word_pos_sentence(
-            word_sentence_list[i], pos_sentence_list[i]))
         for entity in sorted(entity_sentence_list[i]):
             result.append(str(entity))
         result.append("")
