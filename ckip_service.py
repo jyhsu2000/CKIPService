@@ -2,6 +2,7 @@
 # coding=utf-8
 # -*- coding: UTF-8 -*-
 import uvicorn
+import json
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
@@ -84,7 +85,7 @@ async def tokenize(
             sentence_result['entities'].append(str(entity))
             result.append(str(entity))
         result.append("")
-    return '\n'.join(result)
+    return json.dumps(json_response)
 
 
 if __name__ == "__main__":
