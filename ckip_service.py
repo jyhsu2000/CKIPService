@@ -54,14 +54,14 @@ async def tokenize(
     def print_word_pos_sentence(word_sentence, pos_sentence):
         assert len(word_sentence) == len(pos_sentence)
         word_pos_sentence = ""
-        word_segment = []
+        word_segment_list = []
         for word, pos in zip(word_sentence, pos_sentence):
-            ws = {
+            word_segment = {
                 'word': word,
                 'ps': pos,
             }
             word_segment.append(ws)
-        return word_segment
+        return word_segment_list
 
     for i in range(len(sentence_list)):
         json_response['words'] = print_word_pos_sentence(
