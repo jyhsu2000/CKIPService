@@ -48,18 +48,25 @@ async def tokenize(
     entity_sentence_list = ner(word_sentence_list, pos_sentence_list)
 
     # Show results
+    json_response = {}
     result = []
 
     def print_word_pos_sentence(word_sentence, pos_sentence):
         assert len(word_sentence) == len(pos_sentence)
         word_pos_sentence = ""
+        word_segment_list = []
         for word, pos in zip(word_sentence, pos_sentence):
-            word_pos_sentence += f"{word}({pos})" + "\u3000"
-        return word_pos_sentence
+            word_segment = {
+                'word': word,
+                'ps': pos,
+            }
+        return word_segment_list
 
     for i in range(len(sentence_list)):
-        result.append(print_word_pos_sentence(
-            word_sentence_list[i], pos_sentence_list[i]))
+        json_response['words'] = print_word_pos_sentence(
+            word_sentence_list[i],
+            pos_sentence_list[i],
+        )
         for entity in sorted(entity_sentence_list[i]):
             result.append(str(entity))
         result.append("")
