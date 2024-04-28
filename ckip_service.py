@@ -48,7 +48,9 @@ async def tokenize(
     entity_sentence_list = ner(word_sentence_list, pos_sentence_list)
 
     # Show results
-    json_response = {}
+    json_response = {
+        'sentences': [],
+    }
     result = []
 
     def print_word_pos_sentence(word_sentence, pos_sentence):
