@@ -65,10 +65,13 @@ async def tokenize(
 
         return word_segment_list
 
+    sentence_result = []
     for i in range(len(sentence_list)):
-        json_response['words'] = print_word_pos_sentence(
-            word_sentence_list[i],
-            pos_sentence_list[i],
+        sentence_result.append(
+            print_word_pos_sentence(
+                word_sentence_list[i],
+                pos_sentence_list[i],
+            )
         )
 
         for entity in sorted(entity_sentence_list[i]):
