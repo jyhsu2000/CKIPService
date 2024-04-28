@@ -62,7 +62,7 @@ async def tokenize(
         for word, pos in zip(word_sentence, pos_sentence):
             word_segment = {
                 'word': word,
-                'ps': pos,
+                'pos': pos,
             }
             word_segment_list.append(word_segment)
 
