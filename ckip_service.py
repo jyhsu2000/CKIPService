@@ -53,7 +53,6 @@ async def tokenize(
     json_response = {
         'sentences': [],
     }
-    result = []
 
     def print_word_pos_sentence(word_sentence, pos_sentence):
         assert len(word_sentence) == len(pos_sentence)
@@ -87,10 +86,8 @@ async def tokenize(
                 'end': entity[1],
             })
 
-        result.append("")
         json_response['sentences'].append(sentence_result)
 
-    print(result, "\n")
     return json.dumps(json_response)
 
 
