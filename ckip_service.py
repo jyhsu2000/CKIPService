@@ -7,8 +7,7 @@ import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
-from fastapi.responses import RedirectResponse
-from starlette.responses import JSONResponse
+from fastapi.responses import PlainTextResponse, RedirectResponse
 
 # model variables
 ws = None
@@ -35,7 +34,7 @@ async def index():
     return RedirectResponse('/docs')
 
 
-@app.post('/', response_class=JSONResponse)
+@app.post('/', response_class=PlainTextResponse)
 async def tokenize(
         sentence_list: str = Form(
             ...,
