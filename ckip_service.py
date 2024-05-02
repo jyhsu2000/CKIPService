@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # coding=utf-8
 # -*- coding: UTF-8 -*-
-import uvicorn
 import json
+
+import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
-from fastapi.responses import PlainTextResponse, RedirectResponse
+from fastapi.responses import RedirectResponse
 from starlette.responses import JSONResponse
 
 # model variables
