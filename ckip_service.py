@@ -7,6 +7,7 @@ from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
 from fastapi.responses import PlainTextResponse, RedirectResponse
+from starlette.responses import JSONResponse
 
 # model variables
 ws = None
@@ -33,7 +34,7 @@ async def index():
     return RedirectResponse('/docs')
 
 
-@app.post('/', response_class=PlainTextResponse)
+@app.post('/', response_class=JSONResponse)
 async def tokenize(
         sentence_list: str = Form(
             ...,
