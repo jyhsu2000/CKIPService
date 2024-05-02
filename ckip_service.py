@@ -56,7 +56,6 @@ async def tokenize(
 
     def print_word_pos_sentence(word_sentence, pos_sentence):
         assert len(word_sentence) == len(pos_sentence)
-        word_pos_sentence = ""
         word_segment_list = []
 
         for word, pos in zip(word_sentence, pos_sentence):
