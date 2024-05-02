@@ -82,7 +82,7 @@ async def tokenize(
         for entity in sorted(entity_sentence_list[i]):
             sentence_result['entities'].append(str(entity))
             result.append(str(entity))
-        result.append("")
+        json_response['sentences'].append(sentence_result)
     return json.dumps(json_response)
 
 
