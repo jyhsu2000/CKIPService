@@ -2,3 +2,5 @@ ckiptagger
 uvicorn[standard]
 fastapi
 python-multipart
+tensorflow-cpu==2.14.0  # Use `tensorflow-cpu` instead of `tensorflow` to avoid redundant reinstall in Docker build
+numpy
