@@ -5,7 +5,7 @@ import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
-from fastapi.responses import PlainTextResponse, RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
 
 # model variables
 ws = None
@@ -32,7 +32,7 @@ async def index():
     return RedirectResponse('/docs')
 
 
-@app.post('/', response_class=PlainTextResponse)
+@app.post('/', response_class=JSONResponse)
 async def tokenize(
         sentence_list: str = Form(
             ...,
@@ -48,22 +48,45 @@ async def tokenize(
     entity_sentence_list = ner(word_sentence_list, pos_sentence_list)
 
     # Show results
-    result = []
+    json_response = {
+        'sentences': [],
+    }
 
     def print_word_pos_sentence(word_sentence, pos_sentence):
         assert len(word_sentence) == len(pos_sentence)
-        word_pos_sentence = ""
+        word_segment_list = []
+
         for word, pos in zip(word_sentence, pos_sentence):
-            word_pos_sentence += f"{word}({pos})" + "\u3000"
-        return word_pos_sentence
+            word_segment = {
+                'word': word,
+                'pos': pos,
+            }
+            word_segment_list.append(word_segment)
+
+        return word_segment_list
 
     for i in range(len(sentence_list)):
-        result.append(print_word_pos_sentence(
-            word_sentence_list[i], pos_sentence_list[i]))
+        sentence_result = {
+            'segments': [],
+            'entities': [],
+        }
+
+        sentence_result['segments'] = print_word_pos_sentence(
+            word_sentence_list[i],
+            pos_sentence_list[i],
+        )
+
         for entity in sorted(entity_sentence_list[i]):
-            result.append(str(entity))
-        result.append("")
-    return '\n'.join(result)
+            sentence_result['entities'].append({
+                'word': entity[3],
+                'type': entity[2],
+                'start': entity[0],
+                'end': entity[1],
+            })
+
+        json_response['sentences'].append(sentence_result)
+
+    return json_response
 
 
 if __name__ == "__main__":
