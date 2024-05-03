@@ -42,37 +42,37 @@ async def tokenize(
 ) -> dict[str, Any]:
     sentence_list = sentence_list.split('\n')
 
-    word_sentence_list = request.app.ws(sentence_list)
-    pos_sentence_list = request.app.pos(word_sentence_list)
-    entity_sentence_list = request.app.ner(word_sentence_list, pos_sentence_list)
+    words_list = request.app.ws(sentence_list)
+    part_of_speech_tags_list = request.app.pos(words_list)
+    named_entities_list = request.app.ner(words_list, part_of_speech_tags_list)
 
-    assert len(sentence_list) == len(word_sentence_list) == len(pos_sentence_list) == len(entity_sentence_list)
+    assert len(sentence_list) == len(words_list) == len(part_of_speech_tags_list) == len(named_entities_list)
 
     json_response = {
         'sentences': [],
     }
 
-    for sentence, word_list, pos_list, entity_list in zip(sentence_list, word_sentence_list, pos_sentence_list, entity_sentence_list):
-        sentence_result = {
+    for sentence, words, part_of_speech_tags, named_entities in zip(sentence_list, words_list, part_of_speech_tags_list, named_entities_list):
+        sentence_response = {
             'segments': [],
             'entities': []
         }
 
-        for word, pos in zip(word_list, pos_list):
-            sentence_result['segments'].append({
+        for word, part_of_speech_tag in zip(words, part_of_speech_tags):
+            sentence_response['segments'].append({
                 'word': word,
-                'pos': pos,
+                'pos': part_of_speech_tag,
             })
 
-        for entity in sorted(entity_list):
-            sentence_result['entities'].append({
-                'word': entity[3],
-                'type': entity[2],
-                'start': entity[0],
-                'end': entity[1],
+        for named_entity in sorted(named_entities):
+            sentence_response['entities'].append({
+                'word': named_entity[3],
+                'type': named_entity[2],
+                'start': named_entity[0],
+                'end': named_entity[1],
             })
 
-        json_response['sentences'].append(sentence_result)
+        json_response['sentences'].append(sentence_response)
 
     return json_response
 
