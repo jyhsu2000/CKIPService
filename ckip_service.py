@@ -5,26 +5,25 @@ import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
+from fastapi.requests import Request
 from fastapi.responses import RedirectResponse, JSONResponse
-
-# model variables
-ws = None
-pos = None
-ner = None
 
 app = FastAPI(
     title='CKIP Service',
     description='Web service for ckiplab/ckiptagger'
 )
+# model variables
+app.ws = None
+app.pos = None
+app.ner = None
 
 
 @app.on_event('startup')
 async def initial() -> None:
-    global ws, pos, ner
     # Load model
-    ws = WS('./data')
-    pos = POS('./data')
-    ner = NER('./data')
+    app.ws = WS('./data')
+    app.pos = POS('./data')
+    app.ner = NER('./data')
 
 
 @app.get('/', include_in_schema=False)
@@ -34,18 +33,18 @@ async def index() -> RedirectResponse:
 
 @app.post('/', response_class=JSONResponse)
 async def tokenize(
+    request: Request,
     sentence_list: str = Form(
         ...,
         description=r'Sentence list for CKIP tagging, split multiple sentences by linebreak(`\n`)',
         example='美國參議院針對今天總統布希所提名的勞工部長趙小蘭展開認可聽證會，預料她將會很順利通過參議院支持，成為該國有史以來第一位的華裔女性內閣成員。'
     )
 ) -> dict[str, Any]:
-    global ws, pos, ner
     sentence_list = sentence_list.split('\n')
 
-    word_sentence_list = ws(sentence_list)
-    pos_sentence_list = pos(word_sentence_list)
-    entity_sentence_list = ner(word_sentence_list, pos_sentence_list)
+    word_sentence_list = request.app.ws(sentence_list)
+    pos_sentence_list = request.app.pos(word_sentence_list)
+    entity_sentence_list = request.app.ner(word_sentence_list, pos_sentence_list)
 
     # Show results
     json_response = {
