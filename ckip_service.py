@@ -46,15 +46,23 @@ async def tokenize(
     pos_sentence_list = request.app.pos(word_sentence_list)
     entity_sentence_list = request.app.ner(word_sentence_list, pos_sentence_list)
 
+    assert len(sentence_list) == len(word_sentence_list) == len(pos_sentence_list) == len(entity_sentence_list)
+
     json_response = {
         'sentences': [],
     }
 
     for sentence, word_list, pos_list, entity_list in zip(sentence_list, word_sentence_list, pos_sentence_list, entity_sentence_list):
         sentence_result = {
-            'segments': __get_word_segment_list(word_list, pos_list),
+            'segments': [],
             'entities': []
         }
+
+        for word, pos in zip(word_list, pos_list):
+            sentence_result['segments'].append({
+                'word': word,
+                'pos': pos,
+            })
 
         for entity in sorted(entity_list):
             sentence_result['entities'].append({
@@ -67,20 +75,6 @@ async def tokenize(
         json_response['sentences'].append(sentence_result)
 
     return json_response
-
-
-def __get_word_segment_list(word_sentence: list[str], pos_sentence: list[str]) -> list[dict[str, str]]:
-    assert len(word_sentence) == len(pos_sentence)
-    word_segment_list = []
-
-    for word, pos in zip(word_sentence, pos_sentence):
-        word_segment = {
-            'word': word,
-            'pos': pos,
-        }
-        word_segment_list.append(word_segment)
-
-    return word_segment_list
 
 
 if __name__ == '__main__':
