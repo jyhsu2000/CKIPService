@@ -1,9 +1,9 @@
 FROM tensorflow/tensorflow:2.14.0
 
-WORKDIR /usr/local/src/CKIPTagger
-
 ADD requirements.txt .
 RUN pip3 --no-cache-dir install -r requirements.txt
+
+WORKDIR /app
 
 COPY ckip_service.py ./
 
