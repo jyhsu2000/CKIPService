@@ -50,7 +50,7 @@ async def tokenize(
         'sentences': [],
     }
 
-    def print_word_pos_sentence(word_sentence: list[str], pos_sentence: list[str]) -> list[dict[str, str]]:
+    def get_word_segment_list(word_sentence: list[str], pos_sentence: list[str]) -> list[dict[str, str]]:
         assert len(word_sentence) == len(pos_sentence)
         word_segment_list = []
 
@@ -69,7 +69,7 @@ async def tokenize(
             'entities': [],
         }
 
-        sentence_result['segments'] = print_word_pos_sentence(
+        sentence_result['segments'] = get_word_segment_list(
             word_sentence_list[i],
             pos_sentence_list[i],
         )
