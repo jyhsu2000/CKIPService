@@ -10,4 +10,4 @@ services:
       - 127.0.0.1:5005:5005
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./data:/app/data:ro
+      - ./data:/code/data:ro

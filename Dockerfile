@@ -3,7 +3,7 @@ FROM tensorflow/tensorflow:2.14.0
 ADD requirements.txt .
 RUN pip3 --no-cache-dir install -r requirements.txt
 
-WORKDIR /app
+WORKDIR /code
 
 COPY app ./app
 
