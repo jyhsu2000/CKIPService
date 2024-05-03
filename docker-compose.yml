@@ -1,10 +1,9 @@
 version: '3'
 services:
-  ckip:
-    container_name: ckip-service
+  ckip-service:
     image: jyhsu2000/ckip-service
     build: .
-    restart: always
+    restart: unless-stopped
     environment:
       - PYTHONIOENCODING=utf-8
     ports:
