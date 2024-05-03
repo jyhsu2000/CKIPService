@@ -17,9 +17,9 @@ def main(sentence_list: list[str]) -> None:
     # data_utils.download_data("./")
 
     # Load model
-    ws = WS('./data')
-    pos = POS('./data')
-    ner = NER('./data')
+    ws = WS('../data')
+    pos = POS('../data')
+    ner = NER('../data')
 
     # Create custom dictionary
     # word_to_weight = {
