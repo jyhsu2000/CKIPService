@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# coding=utf-8
-# -*- coding: UTF-8 -*-
+from typing import Any
+
 import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
@@ -13,33 +13,33 @@ pos = None
 ner = None
 
 app = FastAPI(
-    title="CKIP Service",
-    description="Web service for ckiplab/ckiptagger"
+    title='CKIP Service',
+    description='Web service for ckiplab/ckiptagger'
 )
 
 
-@app.on_event("startup")
-async def initial():
+@app.on_event('startup')
+async def initial() -> None:
     global ws, pos, ner
     # Load model
-    ws = WS("./data")
-    pos = POS("./data")
-    ner = NER("./data")
+    ws = WS('./data')
+    pos = POS('./data')
+    ner = NER('./data')
 
 
 @app.get('/', include_in_schema=False)
-async def index():
+async def index() -> RedirectResponse:
     return RedirectResponse('/docs')
 
 
 @app.post('/', response_class=JSONResponse)
 async def tokenize(
-        sentence_list: str = Form(
-            ...,
-            description=r'Sentence list for CKIP tagging, split multiple sentences by linebreak(`\n`)',
-            example='美國參議院針對今天總統布希所提名的勞工部長趙小蘭展開認可聽證會，預料她將會很順利通過參議院支持，成為該國有史以來第一位的華裔女性內閣成員。'
-        )
-):
+    sentence_list: str = Form(
+        ...,
+        description=r'Sentence list for CKIP tagging, split multiple sentences by linebreak(`\n`)',
+        example='美國參議院針對今天總統布希所提名的勞工部長趙小蘭展開認可聽證會，預料她將會很順利通過參議院支持，成為該國有史以來第一位的華裔女性內閣成員。'
+    )
+) -> dict[str, Any]:
     global ws, pos, ner
     sentence_list = sentence_list.split('\n')
 
@@ -52,7 +52,7 @@ async def tokenize(
         'sentences': [],
     }
 
-    def print_word_pos_sentence(word_sentence, pos_sentence):
+    def print_word_pos_sentence(word_sentence: list[str], pos_sentence: list[str]) -> list[dict[str, str]]:
         assert len(word_sentence) == len(pos_sentence)
         word_segment_list = []
 
@@ -89,5 +89,5 @@ async def tokenize(
     return json_response
 
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=5005)
+if __name__ == '__main__':
+    uvicorn.run(app, host='0.0.0.0', port=5005)
