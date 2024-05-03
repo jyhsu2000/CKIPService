@@ -1,7 +1,7 @@
 version: '3'
 services:
   ckip-service:
-    image: jyhsu2000/ckip-service
+    image: jyhsu/ckip-service
     build: .
     restart: unless-stopped
     environment:
