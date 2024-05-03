@@ -1,0 +1,66 @@
+target-version = 'py310'
+exclude = [
+    '.bzr',
+    '.direnv',
+    '.eggs',
+    '.git',
+    '.hg',
+    '.mypy_cache',
+    '.nox',
+    '.pants.d',
+    '.pytype',
+    '.ruff_cache',
+    '.svn',
+    '.tox',
+    '.venv',
+    '__pypackages__',
+    '_build',
+    'buck-out',
+    'build',
+    'dist',
+    'node_modules',
+    'venv',
+    # For project
+    'data',
+]
+line-length = 250
+
+[lint]
+select = [
+    'F', # Pyflakes
+    'E', # pycodestyle
+    'W', # pycodestyle
+    'UP', # flake8-upgrade
+    'YTT', # flake8-2020
+    'ANN', # flake8-annotations
+    'A', # flake8-builtins
+    'COM', # flake8-commas
+    'C4', # flake8-comprehensions
+    'ISC', # flake8-implicit-str-concat
+    'ICN', # flake8-import-conventions
+    'PIE', # flake8-pie
+    'Q', # flake8-quotes
+    'RSE', # flake8-raise
+    'RET', # flake8-return
+    'SLF', # flake8-self
+    'SIM', # flake8-simplify
+    'TID', # flake8-tidy-imports,
+    'TCH', # flake8-type-checking
+    'PD', # pandas-vet
+    'NPY', # NumPy-specific rules
+]
+ignore = [
+    'ANN002', # Missing type annotation for *args
+    'ANN003', # Missing type annotation for **kwargs
+    'ANN101', # Missing type annotation for self in method
+    'ANN102', # Missing type annotation for `cls` in classmethod
+    'ANN401', # Dynamically typed expressions (typing.Any) are disallowed
+    'COM812', # Trailing comma missing
+    'RET504', # Unnecessary variable assignment before return statement
+    'SIM115', # Use context handler for opening files
+    'SIM108', # Use ternary operator {contents} instead of if-else-block
+    'TID252', # Relative imports from parent modules are banned
+]
+
+[lint.flake8-quotes]
+inline-quotes = 'single'
