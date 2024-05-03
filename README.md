@@ -1,5 +1,7 @@
 # CKIP Service
 
+[![Docker Hub](https://img.shields.io/badge/Docker_Hub-blue)](https://hub.docker.com/r/jyhsu/ckip-service)
+
 Docker compose for [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)
 
 ## Preparation
