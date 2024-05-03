@@ -5,8 +5,8 @@ RUN pip3 --no-cache-dir install -r requirements.txt
 
 WORKDIR /app
 
-COPY ckip_service.py ./
+COPY app ./app
 
 EXPOSE 5005
 
-CMD ["python3", "./ckip_service.py"]
+CMD uvicorn app.main:app --host=0.0.0.0 --port=5005

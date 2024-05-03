@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from typing import Any
 
-import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
 from fastapi.params import Form
@@ -75,7 +74,3 @@ async def tokenize(
         json_response['sentences'].append(sentence_response)
 
     return json_response
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=5005)

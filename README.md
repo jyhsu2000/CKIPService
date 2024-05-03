@@ -212,5 +212,5 @@ However, **we highly recommend using Docker Compose**.
     ```
 2. Run
     ```bash
-    python3 ckip_service.py
+    uvicorn app.main:app --host=0.0.0.0 --port=5005
     ```
