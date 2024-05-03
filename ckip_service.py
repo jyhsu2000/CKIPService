@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # coding=utf-8
 # -*- coding: UTF-8 -*-
-import json
-
 import uvicorn
 from ckiptagger import WS, POS, NER
 from fastapi import FastAPI
@@ -88,7 +86,7 @@ async def tokenize(
 
         json_response['sentences'].append(sentence_result)
 
-    return json.dumps(json_response)
+    return json_response
 
 
 if __name__ == "__main__":
