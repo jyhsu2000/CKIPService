@@ -50,18 +50,13 @@ async def tokenize(
         'sentences': [],
     }
 
-    for i in range(len(sentence_list)):
+    for sentence, word_list, pos_list, entity_list in zip(sentence_list, word_sentence_list, pos_sentence_list, entity_sentence_list):
         sentence_result = {
-            'segments': [],
-            'entities': [],
+            'segments': __get_word_segment_list(word_list, pos_list),
+            'entities': []
         }
 
-        sentence_result['segments'] = __get_word_segment_list(
-            word_sentence_list[i],
-            pos_sentence_list[i],
-        )
-
-        for entity in sorted(entity_sentence_list[i]):
+        for entity in sorted(entity_list):
             sentence_result['entities'].append({
                 'word': entity[3],
                 'type': entity[2],
